@@ -311,11 +311,15 @@ async function onVerified(token) {
 
     const data = await response.json();
 
+    // Check if the server returned an error (like 400 or 403)
+    if (!response.ok) {
+        throw new Error(data.message || `HTTP ${response.status}`);
+    }
+
     if (data.success && data.redirect) {
       console.log('✅ Proof generated, redirecting...');
-      // The server returns the exact URL with u=, p=, and t=
       setTimeout(function () {
-        window.location.href = data.redirect;
+        window.location.href = data.redirect; 
       }, 800);
     } else {
       throw new Error(data.message || 'Verification failed on server');
@@ -325,7 +329,8 @@ async function onVerified(token) {
     var box = document.getElementById('errorBox');
     if (box) {
       box.style.display = 'block';
-      box.textContent = t.errConn;
+      // ✅ THIS WILL NOW SHOW THE TRUTH
+      box.textContent = "Real Error: " + error.message; 
     }
     if (card) card.classList.remove('state-verifying');
     verified = false;
